@@ -20,9 +20,6 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <attribute name="dockWidgetArea">
-    <number>2</number>
-   </attribute>
    <property name="minimumSize">
     <size>
      <width>600</width>
@@ -32,16 +29,15 @@
    <property name="windowTitle">
     <string>Image View</string>
    </property>
-   <widget class="QWidget" name="imageViewDockCentralWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>2</width>
-      <height>2</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="imgViewDockLayout"/>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="imgViewDockCentralWidget">
+    <layout class="QVBoxLayout" name="imgViewDockLayout">
+     <item>
+      <layout class="QVBoxLayout" name="imgViewLayout"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QDockWidget" name="paramsListDock">
@@ -65,6 +61,9 @@
      </sizepolicy>
     </property>
     <layout class="QVBoxLayout" name="textureListLayout">
+     <item>
+      <widget class="QListWidget" name="paramsListWidget"/>
+     </item>
      <item>
       <layout class="QHBoxLayout" name="paramsListButtonLayout">
        <item>
@@ -102,7 +101,7 @@
    <property name="minimumSize">
     <size>
      <width>322</width>
-     <height>100</height>
+     <height>170</height>
     </size>
    </property>
    <property name="features">
@@ -116,6 +115,9 @@
    </attribute>
    <widget class="QWidget" name="inImgsListDockCentralWidget">
     <layout class="QVBoxLayout" name="uvViewDockLayout">
+     <item>
+      <widget class="QListWidget" name="inImgsListWidget"/>
+     </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -146,6 +148,9 @@
    </attribute>
    <widget class="QWidget" name="outImgsListDockCentralWidget">
     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QListWidget" name="outImgsListWidget"/>
+     </item>
      <item>
       <layout class="QHBoxLayout" name="outImgsListButtons">
        <item>

@@ -11,13 +11,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ImageDSP
 TEMPLATE = app
 
-
 SOURCES += \
 	src/main.cpp \
-	src/MainWindow.cpp
+	src/MainWindow.cpp \
+	src/ImageViewer.cpp
 
-HEADERS  += \
-	src/MainWindow.h
+HEADERS += \
+	src/MainWindow.h \
+	src/ImageViewer.h
 
-FORMS    += \
+FORMS += \
 	src/MainWindow.ui
