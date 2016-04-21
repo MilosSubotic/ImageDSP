@@ -22,7 +22,7 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>600</width>
+     <width>800</width>
      <height>400</height>
     </size>
    </property>
@@ -40,7 +40,6 @@
     </layout>
    </widget>
   </widget>
-
   <widget class="QDockWidget" name="progListDock">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -50,8 +49,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>322</width>
-     <height>170</height>
+     <width>218</width>
+     <height>200</height>
     </size>
    </property>
    <property name="features">
@@ -66,7 +65,7 @@
    <widget class="QWidget" name="progListDockCentralWidget">
     <layout class="QVBoxLayout" name="progListDockLayout">
      <item>
-      <widget class="QListWidget" name="progList"/>
+      <widget class="QListView" name="progList"/>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -89,7 +88,6 @@
     </layout>
    </widget>
   </widget>
-
   <widget class="QDockWidget" name="inImgsListDock">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -99,8 +97,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>322</width>
-     <height>170</height>
+     <width>218</width>
+     <height>200</height>
     </size>
    </property>
    <property name="features">
@@ -138,7 +136,6 @@
     </layout>
    </widget>
   </widget>
-
   <widget class="QDockWidget" name="outImgsListDock">
    <property name="windowTitle">
     <string>Output Images</string>
@@ -172,7 +169,6 @@
     </layout>
    </widget>
   </widget>
-
   <widget class="QDockWidget" name="paramsListDock">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
@@ -224,8 +220,6 @@
     </layout>
    </widget>
   </widget>
-
-
   <action name="actionNew">
    <property name="text">
     <string>&amp;New</string>

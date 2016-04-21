@@ -3,18 +3,20 @@
 
 #include <QMainWindow>
 
-// Forward declaration.
+// Forward declarations.
 class Ui_mainWindow;
+class Project;
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget* parent = 0);
-    ~MainWindow();
+	explicit MainWindow(QWidget* parent = 0);
+	~MainWindow();
 
 private:
-    Ui_mainWindow* ui;
+	Ui_mainWindow* ui;
+	Project* project;
 };
 
 #endif // MAINWINDOW_H

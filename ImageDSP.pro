@@ -14,11 +14,20 @@ TEMPLATE = app
 SOURCES += \
 	src/main.cpp \
 	src/MainWindow.cpp \
-	src/ImageViewer.cpp
+	src/ImageViewer.cpp \
+	src/InImgItem.cpp \
+	src/UniversalItemDelegate.cpp \
+	src/TableModel.cpp \
+	src/Project.cpp
 
 HEADERS += \
 	src/MainWindow.h \
-	src/ImageViewer.h
+	src/ImageViewer.h \
+	src/InImgItem.h \
+	src/UniversalItemDelegate.h \
+	src/TableModel.h \
+	src/Project.h
 
 FORMS += \
-	src/MainWindow.ui
+	src/MainWindow.ui \
+	src/InImgItem.ui

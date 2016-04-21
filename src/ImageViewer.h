@@ -23,28 +23,28 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 class ImageViewer : public QGraphicsView {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    ImageViewer(QWidget* parent = 0);
-    virtual ~ImageViewer();
+	ImageViewer(QWidget* parent = 0);
+	virtual ~ImageViewer();
 
 public:
-    void setImage(const QImage& image);
-    void clear();
-    QImage getImage();
+	void setImage(const QImage& image);
+	void clear();
+	QImage getImage();
 
 public slots:
-    void zoomIn();
-    void zoomOut();
-    void zoomToFit();
+	void zoomIn();
+	void zoomOut();
+	void zoomToFit();
 
 protected:
-    void wheelEvent(QWheelEvent* event);
+	void wheelEvent(QWheelEvent* event);
 
 protected:
-    QGraphicsScene* _scene;
-    bool _firstSetImage;
+	QGraphicsScene* _scene;
+	bool _firstSetImage;
 
 };
 
