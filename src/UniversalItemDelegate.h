@@ -10,7 +10,7 @@ Q_OBJECT
 
 public:
 	explicit UniversalItemDelegate(
-			ItemWidget* widget,
+			ItemWidget* view,
 			ItemWidget* editor,
 			QObject* parent = 0);
 	~UniversalItemDelegate() {
@@ -41,7 +41,7 @@ protected:
 
 private:
 	mutable int editingRow;
-	ItemWidget* widget;
+	ItemWidget* view;
 	ItemWidget* editor;
 };
 

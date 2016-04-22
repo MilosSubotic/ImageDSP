@@ -14,7 +14,7 @@ public:
 	~ParamItem() {}
 
 	virtual ItemWidget* clone(QWidget* parent);
-	virtual void setContent(const QModelIndex& index);
+	virtual void setIndex(const QModelIndex& index);
 
 private:
 	Ui_ParamItem* ui;

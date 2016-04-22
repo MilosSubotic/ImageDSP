@@ -13,7 +13,7 @@ ItemWidget* ParamItem::clone(QWidget* parent) {
 	return new ParamItem(parent);
 }
 
-void ParamItem::setContent(const QModelIndex& index) {
+void ParamItem::setIndex(const QModelIndex& index) {
 	double min = getField(index, 0);
 	double current = getField(index, 1);
 	double max = getField(index, 2);

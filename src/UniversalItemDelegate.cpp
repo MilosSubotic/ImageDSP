@@ -5,13 +5,13 @@
 #include <QDebug>
 
 UniversalItemDelegate::UniversalItemDelegate(
-		ItemWidget* widget,
+		ItemWidget* view,
 		ItemWidget* editor,
 		QObject* parent)
 		:
 				QStyledItemDelegate(parent),
 				editingRow(-1),
-				widget(widget),
+				view(view),
 				editor(editor) {
 }
 
@@ -21,10 +21,10 @@ QSize UniversalItemDelegate::sizeHint(
 	Q_UNUSED(index);
 
 	if(editingRow == index.row()){
-		widget->setContent(index);
-		return widget->sizeHint();
+		view->setIndex(index);
+		return view->sizeHint();
 	}else{
-		editor->setContent(index);
+		editor->setIndex(index);
 		return editor->sizeHint();
 	}
 }
@@ -38,7 +38,7 @@ void UniversalItemDelegate::paint(
 		return;
 	}
 
-	widget->setContent(index);
+	view->setIndex(index);
 
 	QStyleOptionViewItemV4 opt(option);
 	initStyleOption(&opt, index);
@@ -49,11 +49,11 @@ void UniversalItemDelegate::paint(
 		painter->fillRect(option.rect, option.palette.highlight());
 	}
 
-	widget->setGeometry(option.rect);
+	view->setGeometry(option.rect);
 
 	painter->end();
 
-	widget->render(
+	view->render(
 			painter->device(),
 			option.rect.topLeft(),
 			QRegion(0, 0, option.rect.width(), option.rect.height()),
@@ -81,17 +81,17 @@ void UniversalItemDelegate::updateEditorGeometry(
 void UniversalItemDelegate::setEditorData(
 		QWidget* editor,
 		const QModelIndex& index) const {
-	dynamic_cast<ItemWidget*>(editor)->setContent(index);
-	//TODO editor->connectToModel(index);
+	dynamic_cast<ItemWidget*>(editor)->setIndex(index);
 }
 
 void UniversalItemDelegate::setModelData(
 		QWidget* editor,
 		QAbstractItemModel* model,
 		const QModelIndex& index) const {
+	Q_UNUSED(model);
+
 	Q_ASSERT(editingRow == index.row());
 	editingRow = -1;
-
-	//TODO editor->updateModel(model, index)
+	//TODO Maybe to update model.
 }
 

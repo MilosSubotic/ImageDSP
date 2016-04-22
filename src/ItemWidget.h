@@ -13,7 +13,7 @@ public:
 	virtual ~ItemWidget(){}
 
 	virtual ItemWidget* clone(QWidget* parent) = 0;
-	virtual void setContent(const QModelIndex& index) = 0;
+	virtual void setIndex(const QModelIndex& index) = 0;
 
 };
 
