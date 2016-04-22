@@ -19,6 +19,7 @@ SOURCES += \
 	src/InImgItem.cpp \
 	src/ParamItem.cpp \
 	src/UniversalItemDelegate.cpp \
+	src/HoverEditTriggerListView.cpp \
 	src/TableModel.cpp \
 	src/Project.cpp
 
@@ -29,6 +30,7 @@ HEADERS += \
 	src/InImgItem.h \
 	src/ParamItem.h \
 	src/UniversalItemDelegate.h \
+	src/HoverEditTriggerListView.h \
 	src/TableModel.h \
 	src/Project.h
 

@@ -4,6 +4,7 @@
 #include "Project.h"
 #include "ImageViewer.h"
 #include "UniversalItemDelegate.h"
+#include "HoverEditTriggerListView.h"
 #include "ParamItem.h"
 
 #include <QMessageBox>
@@ -36,15 +37,16 @@ MainWindow::MainWindow(QWidget* parent)
 	//UniversalItemDelegate* uid = new UniversalItemDelegate(this);
 	//ui->inImgsList->setItemDelegate(uid);
 
+	QListView* paramsList = new HoverEditTriggerListView(this);
+	ui->paramsListLayout->addWidget(paramsList);
 	ItemWidget* paramItem = new ParamItem();
-	//TODO Start editing on single click.
-	UniversalItemDelegate* uid2 = new UniversalItemDelegate(
+	UniversalItemDelegate* paramsListDelegate = new UniversalItemDelegate(
 			paramItem,
 			paramItem,
 			this);
-	ui->paramsList->setItemDelegate(uid2);
+	paramsList->setItemDelegate(paramsListDelegate);
 
-	ui->paramsList->setModel(project->getParamsModel());
+	paramsList->setModel(project->getParamsModel());
 
 
 	/////

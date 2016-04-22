@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>mTex Viewer</string>
+   <string>Image DSP</string>
   </property>
   <widget class="QDockWidget" name="imgViewDock">
    <property name="sizePolicy">
@@ -22,7 +22,7 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>800</width>
+     <width>600</width>
      <height>400</height>
     </size>
    </property>
@@ -42,15 +42,15 @@
   </widget>
   <widget class="QDockWidget" name="progListDock">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
    <property name="minimumSize">
     <size>
-     <width>218</width>
-     <height>200</height>
+     <width>300</width>
+     <height>100</height>
     </size>
    </property>
    <property name="features">
@@ -88,6 +88,63 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="paramsListDock">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>300</width>
+     <height>300</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Parameters</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="paramsListDockCentralWidget">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <layout class="QVBoxLayout" name="textureListLayout">
+     <item>
+      <layout class="QVBoxLayout" name="paramsListLayout"/>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="paramsListButtonLayout">
+       <item>
+        <widget class="QPushButton" name="addNewParam">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Add New</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteParam">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QDockWidget" name="inImgsListDock">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -108,7 +165,7 @@
     <string>Input Images</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="inImgsListDockCentralWidget">
     <layout class="QVBoxLayout" name="inImgsListDockLayout">
@@ -141,7 +198,7 @@
     <string>Output Images</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="outImgsListDockCentralWidget">
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -159,57 +216,6 @@
        </item>
        <item>
         <widget class="QPushButton" name="deleteOutImg">
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QDockWidget" name="paramsListDock">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="windowTitle">
-    <string>Parameters</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>1</number>
-   </attribute>
-   <widget class="QWidget" name="paramsListDockCentralWidget">
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <layout class="QVBoxLayout" name="textureListLayout">
-     <item>
-      <widget class="QListView" name="paramsList"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="paramsListButtonLayout">
-       <item>
-        <widget class="QPushButton" name="addNewParam">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string>Add New</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteParam">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string>Delete</string>
          </property>
