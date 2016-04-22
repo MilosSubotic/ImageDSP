@@ -18,16 +18,11 @@ void ParamItem::setIndex(const QModelIndex& index) {
 	double current = getField(index, 1);
 	double max = getField(index, 2);
 
-/*
-	qDebug() << "\n";
-	qDebug() << min;
-	qDebug() << max;
-*/
-
 	Q_ASSERT(min <= max);
 	Q_ASSERT(min <= current && current <= max);
 
 	ui->minEdit->setText(QString::number(min));
+	ui->currentEdit->setText(QString::number(current));
 	ui->maxEdit->setText(QString::number(max));
 
 	int slider_current = qRound64((current - min)/(max - min)*100);

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>ParamItem</class>
- <widget class="QWidget" name="paramItem">
+ <widget class="QWidget" name="ParamItem">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>524</width>
-    <height>93</height>
+    <width>401</width>
+    <height>177</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,18 +28,21 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
       <widget class="QLabel" name="minLabel">
        <property name="text">
         <string>Min:</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1">
       <widget class="QLineEdit" name="minEdit"/>
      </item>
-     <item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="maxEdit"/>
+     </item>
+     <item row="2" column="0">
       <widget class="QLabel" name="maxLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -52,8 +55,15 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLineEdit" name="maxEdit"/>
+     <item row="1" column="0">
+      <widget class="QLabel" name="currentLabel">
+       <property name="text">
+        <string>Current:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="currentEdit"/>
      </item>
     </layout>
    </item>
