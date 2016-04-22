@@ -29,7 +29,7 @@ private:
 
 	TableModel* progsModel;
 	struct ProgSetup {
-		TableModel* paramsModel; // double min, double max, int current.
+		TableModel* paramsModel; // double min, int current, double max.
 	};
 	QVector<ProgSetup> progSetups;
 	QSortFilterProxyModel* paramsProxyModel;

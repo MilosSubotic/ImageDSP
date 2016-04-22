@@ -15,7 +15,9 @@ SOURCES += \
 	src/main.cpp \
 	src/MainWindow.cpp \
 	src/ImageViewer.cpp \
+	src/ItemWidget.cpp \
 	src/InImgItem.cpp \
+	src/ParamItem.cpp \
 	src/UniversalItemDelegate.cpp \
 	src/TableModel.cpp \
 	src/Project.cpp
@@ -23,11 +25,14 @@ SOURCES += \
 HEADERS += \
 	src/MainWindow.h \
 	src/ImageViewer.h \
+	src/ItemWidget.h \
 	src/InImgItem.h \
+	src/ParamItem.h \
 	src/UniversalItemDelegate.h \
 	src/TableModel.h \
 	src/Project.h
 
 FORMS += \
 	src/MainWindow.ui \
-	src/InImgItem.ui
+	src/InImgItem.ui \
+	src/ParamItem.ui

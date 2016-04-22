@@ -4,6 +4,7 @@
 #include "Project.h"
 #include "ImageViewer.h"
 #include "UniversalItemDelegate.h"
+#include "ParamItem.h"
 
 #include <QMessageBox>
 
@@ -12,6 +13,42 @@ MainWindow::MainWindow(QWidget* parent)
 	ui->setupUi(this);
 
 	project = 0;
+
+
+	project = new Project("prj/test_prj.xml", this);
+
+	ui->progList->setModel(project->getProgsModel());
+	//TODO Use activated() signal?
+	connect(
+			ui->progList,
+			SIGNAL(clicked(QModelIndex)),
+			project,
+			SLOT(currentProgChanged(QModelIndex)));
+	//TODO Must select first item, best when file is loaded.
+	// Not sure why this is not working.
+	/*
+	ui->progList->setCurrentIndex(
+		project->getProgsModel()->index(0, 0, QModelIndex())
+	);
+	*/
+
+
+	//UniversalItemDelegate* uid = new UniversalItemDelegate(this);
+	//ui->inImgsList->setItemDelegate(uid);
+
+	ItemWidget* paramItem = new ParamItem();
+	//TODO Start editing on single click.
+	UniversalItemDelegate* uid2 = new UniversalItemDelegate(
+			paramItem,
+			paramItem,
+			this);
+	ui->paramsList->setItemDelegate(uid2);
+
+	ui->paramsList->setModel(project->getParamsModel());
+
+
+	/////
+	// TODO Just for debug.
 
 	ImageViewer* imageViewer = new ImageViewer(this);
 
@@ -29,20 +66,7 @@ MainWindow::MainWindow(QWidget* parent)
 	imageViewer->setImage(image);
 	imageViewer->adjustSize();
 
-	UniversalItemDelegate* uid = new UniversalItemDelegate(this);
-	ui->inImgsList->setItemDelegate(uid);
-
-
-	project = new Project("prj/test_prj.xml", this);
-
-	ui->progList->setModel(project->getProgsModel());
-	//TODO Use activated() signal?
-	connect(
-			ui->progList,
-			SIGNAL(clicked(QModelIndex)),
-			project,
-			SLOT(currentProgChanged(QModelIndex)));
-
+	/////
 }
 
 MainWindow::~MainWindow() {

@@ -17,18 +17,25 @@ Project::Project(const QString& fileName, QObject* parent)
 	paramsProxyModel = new QSortFilterProxyModel(this);
 
 	//TODO Filled for debug.
+	QVector<QVariant> r(3);
 	appendProg("rgb2yuv");
-	QVector<QVariant> r0(3);
-	r0[0] = 0;
-	r0[1] = 100;
-	r0[2] = 50;
-	progSetups[0].paramsModel->appendRow(r0);
+	r[0] = 0;
+	r[1] = 50;
+	r[2] = 100;
+	progSetups[0].paramsModel->appendRow(r);
+	r[0] = 553;
+	r[1] = 553;
+	r[2] = 564;
+	progSetups[0].paramsModel->appendRow(r);
 	appendProg("yuv2rgb");
-	QVector<QVariant> r1(3);
-	r1[0] = 0.0;
-	r1[1] = 0.1;
-	r1[2] = 1.0;
-	progSetups[0].paramsModel->appendRow(r1);
+	r[0] = 0.0;
+	r[1] = 0.1;
+	r[2] = 1.0;
+	progSetups[1].paramsModel->appendRow(r);
+	r[0] = -3.0;
+	r[1] = -2.4;
+	r[2] = -1.0;
+	progSetups[1].paramsModel->appendRow(r);
 }
 
 QAbstractItemModel* Project::getProgsModel() const {

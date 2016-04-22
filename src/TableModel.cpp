@@ -5,7 +5,6 @@ TableModel::TableModel(int columns, QObject *parent)
 		: QAbstractTableModel(parent), columns(columns) {
 }
 
-
 int TableModel::rowCount(const QModelIndex& parent) const {
 	Q_UNUSED(parent);
 	return table.size();
@@ -117,5 +116,3 @@ QVariant TableModel::get(int row, int column) const {
 bool TableModel::set(int row, int column, const QVariant& value) {
 	return setData(index(row, column, QModelIndex()), value, Qt::EditRole);
 }
-
-

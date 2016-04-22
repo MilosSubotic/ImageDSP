@@ -146,7 +146,7 @@
    <widget class="QWidget" name="outImgsListDockCentralWidget">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QListWidget" name="outImgsListWidget"/>
+      <widget class="QListView" name="outImgsList"/>
      </item>
      <item>
       <layout class="QHBoxLayout" name="outImgsListButtons">
@@ -191,7 +191,7 @@
     </property>
     <layout class="QVBoxLayout" name="textureListLayout">
      <item>
-      <widget class="QListWidget" name="paramsListWidget"/>
+      <widget class="QListView" name="paramsList"/>
      </item>
      <item>
       <layout class="QHBoxLayout" name="paramsListButtonLayout">

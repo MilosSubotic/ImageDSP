@@ -7,7 +7,7 @@
 class Ui_InImgItem;
 
 class InImgItem : public QWidget {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	explicit InImgItem(QWidget* parent = 0);
