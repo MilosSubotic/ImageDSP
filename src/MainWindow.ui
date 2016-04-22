@@ -50,7 +50,7 @@
    <property name="minimumSize">
     <size>
      <width>300</width>
-     <height>100</height>
+     <height>50</height>
     </size>
    </property>
    <property name="features">
@@ -98,7 +98,7 @@
    <property name="minimumSize">
     <size>
      <width>300</width>
-     <height>300</height>
+     <height>500</height>
     </size>
    </property>
    <property name="windowTitle">

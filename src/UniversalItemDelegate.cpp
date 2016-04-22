@@ -21,10 +21,10 @@ QSize UniversalItemDelegate::sizeHint(
 	Q_UNUSED(index);
 
 	if(editingRow == index.row()){
-		view->setIndex(index);
+		//view->setIndex(index);
 		return view->sizeHint();
 	}else{
-		editor->setIndex(index);
+		//editor->setIndex(index);
 		return editor->sizeHint();
 	}
 }
@@ -67,7 +67,10 @@ QWidget* UniversalItemDelegate::createEditor(
 		const QStyleOptionViewItem& option,
 		const QModelIndex& index) const {
 	editingRow = index.row();
-	return editor->clone(parent);
+
+	ItemWidget* newEditor = editor->clone(parent);
+	newEditor->setIndex(index);
+	return newEditor;
 }
 
 void UniversalItemDelegate::updateEditorGeometry(
@@ -81,13 +84,16 @@ void UniversalItemDelegate::updateEditorGeometry(
 void UniversalItemDelegate::setEditorData(
 		QWidget* editor,
 		const QModelIndex& index) const {
-	dynamic_cast<ItemWidget*>(editor)->setIndex(index);
+	Q_UNUSED(editor);
+	Q_UNUSED(index);
+	//dynamic_cast<ItemWidget*>(editor)->setIndex(index);
 }
 
 void UniversalItemDelegate::setModelData(
 		QWidget* editor,
 		QAbstractItemModel* model,
 		const QModelIndex& index) const {
+	Q_UNUSED(editor);
 	Q_UNUSED(model);
 
 	Q_ASSERT(editingRow == index.row());

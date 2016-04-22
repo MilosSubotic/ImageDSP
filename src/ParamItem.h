@@ -19,8 +19,17 @@ public:
 private:
 	Ui_ParamItem* ui;
 
-	double getField(const QModelIndex& index, int column);
+	QModelIndex currentIndex;
 
+	double getField(int column);
+	void setField(int column, double value);
+	void update();
+
+protected slots:
+	void minEditTextEdited(const QString& text);
+	void currentEditTextEdited(const QString& text);
+	void maxEditTextEdited(const QString& text);
+	void paramSliderChanged(int sliderCurrent);
 };
 
 #endif // PARAMITEM_H_
