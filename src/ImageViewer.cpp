@@ -14,6 +14,7 @@
  */
 
 ///////////////////////////////////////////////////////////////////////////////
+
 #include "ImageViewer.h"
 
 #include <QWheelEvent>
@@ -36,9 +37,6 @@ ImageViewer::ImageViewer(QWidget* parent)
 	_scene = new QGraphicsScene(this);
 
 	setScene(_scene);
-
-	//Set-up the view
-	//setSceneRect(0, 0, 300, 300);
 }
 
 ImageViewer::~ImageViewer() {
@@ -48,7 +46,8 @@ void ImageViewer::setImage(const QImage& image) {
 	_scene->addPixmap(QPixmap::fromImage(image));
 	if(_firstSetImage){
 		_firstSetImage = false;
-		zoomToFit();
+		//FIXME This not working.
+		//zoomToFit();
 	}
 }
 
