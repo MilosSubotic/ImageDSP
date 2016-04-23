@@ -45,6 +45,8 @@ void ParamItem::setIndex(const QModelIndex& index) {
 }
 
 void ParamItem::update() {
+	// TODO Too much calling dataChanged().
+
 	double min = getField(0);
 	double current = getField(1);
 	double max = getField(2);

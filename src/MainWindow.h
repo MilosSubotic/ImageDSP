@@ -6,6 +6,7 @@
 // Forward declarations.
 class Ui_mainWindow;
 class Project;
+class ImageViewer;
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -17,6 +18,10 @@ public:
 private:
 	Ui_mainWindow* ui;
 	Project* project;
+	ImageViewer* imageViewer;
+
+private slots:
+	void updateImageViews();
 };
 
 #endif // MAINWINDOW_H

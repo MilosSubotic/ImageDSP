@@ -21,7 +21,8 @@ SOURCES += \
 	src/UniversalItemDelegate.cpp \
 	src/HoverEditTriggerListView.cpp \
 	src/TableModel.cpp \
-	src/Project.cpp
+	src/Project.cpp \
+	src/ImageProcessing.cpp
 
 HEADERS += \
 	src/MainWindow.h \
@@ -32,7 +33,8 @@ HEADERS += \
 	src/UniversalItemDelegate.h \
 	src/HoverEditTriggerListView.h \
 	src/TableModel.h \
-	src/Project.h
+	src/Project.h \
+	src/ImageProcessing.h
 
 FORMS += \
 	src/MainWindow.ui \

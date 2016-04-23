@@ -8,13 +8,13 @@
 #include "ParamItem.h"
 
 #include <QMessageBox>
+#include <QDebug>
+
+Q_DECLARE_METATYPE(QImage*);
 
 MainWindow::MainWindow(QWidget* parent)
 		: QMainWindow(parent), ui(new Ui_mainWindow) {
 	ui->setupUi(this);
-
-	project = 0;
-
 
 	project = new Project("prj/test_prj.xml", this);
 
@@ -25,13 +25,16 @@ MainWindow::MainWindow(QWidget* parent)
 			SIGNAL(clicked(QModelIndex)),
 			project,
 			SLOT(currentProgChanged(QModelIndex)));
-	//TODO Must select first item, best when file is loaded.
-	// Not sure why this is not working.
 	/*
 	ui->progList->setCurrentIndex(
 		project->getProgsModel()->index(0, 0, QModelIndex())
 	);
 	*/
+	connect(
+			project,
+			SIGNAL(imageProcessingDone()),
+			this,
+			SLOT(updateImageViews()));
 
 
 	//UniversalItemDelegate* uid = new UniversalItemDelegate(this);
@@ -49,28 +52,19 @@ MainWindow::MainWindow(QWidget* parent)
 	paramsList->setModel(project->getParamsModel());
 
 
-	/////
-	// TODO Just for debug.
-
-	ImageViewer* imageViewer = new ImageViewer(this);
-
+	imageViewer = new ImageViewer(this);
 	ui->imgViewLayout->addWidget(imageViewer);
-
-	QString fileName("in_img/playing_cat.jpg");
-	QImage image(fileName);
-	if(image.isNull()){
-		QMessageBox::information(
-				this,
-				tr("Image Viewer"),
-				tr("Cannot open image \"%1\"!").arg(fileName));
-		return;
-	}
-	imageViewer->setImage(image);
-	imageViewer->adjustSize();
-
-	/////
 }
 
 MainWindow::~MainWindow() {
 	delete ui;
+}
+
+void MainWindow::updateImageViews() {
+	QAbstractItemModel* m = project->getOutImgsModel();
+	QVariant v = m->data(m->index(0, 1));
+	QImage* i = v.value<QImage*>();
+
+	imageViewer->setImage(*i);
+	//imageViewer->adjustSize();
 }
