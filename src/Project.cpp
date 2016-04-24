@@ -34,15 +34,16 @@ Project::Project(const QString& fileName, QObject* parent)
 			this,
 			SLOT(dataChanged(QModelIndex, QModelIndex)));
 
-	//TODO Filled for debug.
+	//TODO Hard-coded for debug.
 	QVector<QVariant> r3(3);
 	QVector<QVariant> r2(2);
 	appendProg("rgb2yuv");
-	r2[0] = QString("playing_cat_processed");
+	r2[0] = QString("playing_kitten_processed");
 	r2[1] = QVariant::fromValue(new QImage());
 	progSetups[0].outImgsModel->appendRow(r2);
-	r2[0] = QString("playing_cat");
-	r2[1] = QVariant::fromValue(new QImage(QString("in_img/playing_cat.jpg")));
+	r2[0] = QString("playing_kitten");
+	r2[1] = QVariant::fromValue(
+			new QImage(QString("in_img/playing_kitten.jpg")));
 	progSetups[0].inImgsModel->appendRow(r2);
 	r3[0] = 0;
 	r3[1] = 0;

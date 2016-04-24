@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget* parent)
 		: QMainWindow(parent), ui(new Ui_mainWindow) {
 	ui->setupUi(this);
 
-	tabifyDockWidget(ui->paramsListDock, ui->inImgsListDock);
-	tabifyDockWidget(ui->paramsListDock, ui->outImgsListDock);
+	tabifyDockWidget(ui->outImgsListDock, ui->inImgsListDock);
+	tabifyDockWidget(ui->outImgsListDock, ui->paramsListDock);
 
 	project = new Project("prj/test_prj.xml", this);
 
