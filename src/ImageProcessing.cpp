@@ -7,6 +7,7 @@ static void rgb2yuv(
 		QImage& yuvImg,
 		const QImage& rgbImg,
 		const QVector<double>& params) {
+	qDebug() << "rgb2yuv";
 
 	yuvImg = QImage(rgbImg.size(), rgbImg.format());
 	for(int y = 0; y < yuvImg.height(); y++){

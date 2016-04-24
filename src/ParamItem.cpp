@@ -8,9 +8,11 @@ ParamItem::ParamItem(QWidget* parent)
 	: ItemWidget(parent), ui(new Ui_ParamItem) {
 	ui->setupUi(this);
 
-	//ui->minEdit->setValidator(new QDoubleValidator());
+	ui->minEdit->setValidator(new QDoubleValidator());
 	ui->currentEdit->setValidator(new QDoubleValidator());
 	ui->maxEdit->setValidator(new QDoubleValidator());
+
+	ui->paramSlider->setTracking(false);
 
 	connect(
 			ui->minEdit,
@@ -41,10 +43,12 @@ ItemWidget* ParamItem::clone(QWidget* parent) {
 
 void ParamItem::setIndex(const QModelIndex& index) {
 	currentIndex = index;
+	qDebug() << "setIndex";
 	update();
 }
 
 void ParamItem::update() {
+	qDebug() << "update";
 	// TODO Too much calling dataChanged().
 
 	double min = getField(0);
@@ -53,18 +57,11 @@ void ParamItem::update() {
 	Q_ASSERT(min <= max);
 	Q_ASSERT(min <= current && current <= max);
 
-	int pos;
-	pos = ui->minEdit->cursorPosition();
 	ui->minEdit->setText(QString::number(min));
-	ui->minEdit->setCursorPosition(pos);
 
-	pos = ui->currentEdit->cursorPosition();
 	ui->currentEdit->setText(QString::number(current));
-	ui->currentEdit->setCursorPosition(pos);
 
-	pos = ui->maxEdit->cursorPosition();
 	ui->maxEdit->setText(QString::number(max));
-	ui->maxEdit->setCursorPosition(pos);
 
 	int sliderCurrent = qRound64((current - min) / (max - min) * 100);
 	Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
@@ -91,6 +88,8 @@ void ParamItem::setField(int column, double value) {
 }
 
 void ParamItem::minEditTextEdited(const QString& text) {
+	qDebug() << "minEditTextEdited start";
+
 	double min = text.toDouble();
 	double current = getField(1);
 	double max = getField(2);
@@ -98,19 +97,26 @@ void ParamItem::minEditTextEdited(const QString& text) {
 	if(max < min) {
 		max = min;
 		setField(2, max);
+		ui->maxEdit->setText(QString::number(max));
 	}
 
 	if(current < min) {
 		current = min;
 		setField(1, current);
+		ui->currentEdit->setText(QString::number(current));
+		int sliderCurrent = qRound64((current - min) / (max - min) * 100);
+		Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
+		ui->paramSlider->setValue(sliderCurrent);
 	}
 
 	setField(0, min);
 
-	update();
+	qDebug() << "minEditTextEdited end";
 }
 
 void ParamItem::currentEditTextEdited(const QString& text) {
+	qDebug() << "currentEditTextEdited start";
+
 	double min = getField(0);
 	double current = text.toDouble();
 	double max = getField(2);
@@ -124,7 +130,11 @@ void ParamItem::currentEditTextEdited(const QString& text) {
 	}
 
 	setField(1, current);
-	update();
+	int sliderCurrent = qRound64((current - min) / (max - min) * 100);
+	Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
+	ui->paramSlider->setValue(sliderCurrent);
+
+	qDebug() << "currentEditTextEdited end";
 }
 
 void ParamItem::maxEditTextEdited(const QString& text) {
@@ -135,19 +145,23 @@ void ParamItem::maxEditTextEdited(const QString& text) {
 	if(min > max) {
 		min = max;
 		setField(0, min);
+		ui->minEdit->setText(QString::number(min));
 	}
 
 	if(current > max) {
 		current = max;
 		setField(1, current);
+		ui->currentEdit->setText(QString::number(current));
+		int sliderCurrent = qRound64((current - min) / (max - min) * 100);
+		Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
+		ui->paramSlider->setValue(sliderCurrent);
 	}
 
 	setField(2, max);
-
-	update();
 }
 
 void ParamItem::paramSliderChanged(int sliderCurrent) {
+	qDebug() << "paramSliderChanged start";
 	Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
 
 	double min = getField(0);
@@ -157,6 +171,7 @@ void ParamItem::paramSliderChanged(int sliderCurrent) {
 	setField(1, current);
 
 	update();
+	qDebug() << "paramSliderChanged end";
 }
 
 ///////////////////////////////////////////////////////////////////////////////

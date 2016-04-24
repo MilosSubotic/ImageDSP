@@ -18,7 +18,7 @@ UniversalItemDelegate::UniversalItemDelegate(
 QSize UniversalItemDelegate::sizeHint(
 		const QStyleOptionViewItem& option,
 		const QModelIndex& index) const {
-	Q_UNUSED(index);
+	Q_UNUSED(option);
 
 	if(editingRow == index.row()){
 		//view->setIndex(index);
@@ -38,6 +38,7 @@ void UniversalItemDelegate::paint(
 		return;
 	}
 
+	qDebug() << "paint";
 	view->setIndex(index);
 
 	QStyleOptionViewItemV4 opt(option);
@@ -66,9 +67,12 @@ QWidget* UniversalItemDelegate::createEditor(
 		QWidget* parent,
 		const QStyleOptionViewItem& option,
 		const QModelIndex& index) const {
+	Q_UNUSED(option);
+
 	editingRow = index.row();
 
 	ItemWidget* newEditor = editor->clone(parent);
+	qDebug() << "createEditor";
 	newEditor->setIndex(index);
 	return newEditor;
 }

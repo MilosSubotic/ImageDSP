@@ -109,6 +109,7 @@ void Project::dataChanged(
 }
 
 void Project::imageProcessing() {
+	qDebug() << "imageProcessing";
 
 	QString progName = progsModel->get(currentProg, 0).toString();
 
