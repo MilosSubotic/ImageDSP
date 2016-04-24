@@ -7,15 +7,14 @@ static void rgb2yuv(
 		QImage& yuvImg,
 		const QImage& rgbImg,
 		const QVector<double>& params) {
-	qDebug() << "rgb2yuv";
 
 	yuvImg = QImage(rgbImg.size(), rgbImg.format());
 	for(int y = 0; y < yuvImg.height(); y++){
 		for(int x = 0; x < yuvImg.width(); x++){
 			QRgb p = rgbImg.pixel(x, y);
-			int r = qMin(qRed(p) + int(params[0]), 255);
-			int g = qMin(qGreen(p) + int(params[1]), 255);
-			int b = qMin(qBlue(p) + int(params[2]), 255);
+			int r = qBound(0, qRed(p) + int(params[0]), 255);
+			int g = qBound(0, qGreen(p) + int(params[1]), 255);
+			int b = qBound(0, qBlue(p) + int(params[2]), 255);
 			yuvImg.setPixel(x, y, qRgb(r, g, b));
 		}
 	}

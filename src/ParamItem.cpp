@@ -16,25 +16,25 @@ ParamItem::ParamItem(QWidget* parent)
 
 	connect(
 			ui->minEdit,
-			SIGNAL(textEdited(QString)),
+			SIGNAL(editingFinished()),
 			this,
-			SLOT(minEditTextEdited(QString)));
+			SLOT(minEditEditingFinished()));
 	connect(
 			ui->currentEdit,
-			SIGNAL(textEdited(QString)),
+			SIGNAL(editingFinished()),
 			this,
-			SLOT(currentEditTextEdited(QString)));
+			SLOT(currentEditEditingFinished()));
 	connect(
 			ui->maxEdit,
-			SIGNAL(textEdited(QString)),
+			SIGNAL(editingFinished()),
 			this,
-			SLOT(maxEditTextEdited(QString)));
+			SLOT(maxEditEditingFinished()));
 
 	connect(
 			ui->paramSlider,
-			SIGNAL(valueChanged(int)),
+			SIGNAL(sliderReleased()),
 			this,
-			SLOT(paramSliderChanged(int)));
+			SLOT(paramSliderReleased()));
 }
 
 ItemWidget* ParamItem::clone(QWidget* parent) {
@@ -43,14 +43,10 @@ ItemWidget* ParamItem::clone(QWidget* parent) {
 
 void ParamItem::setIndex(const QModelIndex& index) {
 	currentIndex = index;
-	qDebug() << "setIndex";
 	update();
 }
 
 void ParamItem::update() {
-	qDebug() << "update";
-	// TODO Too much calling dataChanged().
-
 	double min = getField(0);
 	double current = getField(1);
 	double max = getField(2);
@@ -87,38 +83,29 @@ void ParamItem::setField(int column, double value) {
 			model->index(currentIndex.row(), column, QModelIndex()), value);
 }
 
-void ParamItem::minEditTextEdited(const QString& text) {
-	qDebug() << "minEditTextEdited start";
-
-	double min = text.toDouble();
+void ParamItem::minEditEditingFinished() {
+	double min = ui->minEdit->text().toDouble();
 	double current = getField(1);
 	double max = getField(2);
 
 	if(max < min) {
 		max = min;
 		setField(2, max);
-		ui->maxEdit->setText(QString::number(max));
 	}
 
 	if(current < min) {
 		current = min;
 		setField(1, current);
-		ui->currentEdit->setText(QString::number(current));
-		int sliderCurrent = qRound64((current - min) / (max - min) * 100);
-		Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
-		ui->paramSlider->setValue(sliderCurrent);
 	}
 
 	setField(0, min);
 
-	qDebug() << "minEditTextEdited end";
+	update();
 }
 
-void ParamItem::currentEditTextEdited(const QString& text) {
-	qDebug() << "currentEditTextEdited start";
-
+void ParamItem::currentEditEditingFinished() {
 	double min = getField(0);
-	double current = text.toDouble();
+	double current = ui->currentEdit->text().toDouble();
 	double max = getField(2);
 
 	if(current < min){
@@ -129,39 +116,37 @@ void ParamItem::currentEditTextEdited(const QString& text) {
 		current = max;
 	}
 
-	setField(1, current);
+	// Snap it to slider resolution.
 	int sliderCurrent = qRound64((current - min) / (max - min) * 100);
-	Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
-	ui->paramSlider->setValue(sliderCurrent);
+	current = double(sliderCurrent)/100*(max - min) + min;
 
-	qDebug() << "currentEditTextEdited end";
+	setField(1, current);
+
+	update();
 }
 
-void ParamItem::maxEditTextEdited(const QString& text) {
+void ParamItem::maxEditEditingFinished() {
 	double min = getField(0);
 	double current = getField(1);
-	double max = text.toDouble();
+	double max = ui->maxEdit->text().toDouble();
 
 	if(min > max) {
 		min = max;
 		setField(0, min);
-		ui->minEdit->setText(QString::number(min));
 	}
 
 	if(current > max) {
 		current = max;
 		setField(1, current);
-		ui->currentEdit->setText(QString::number(current));
-		int sliderCurrent = qRound64((current - min) / (max - min) * 100);
-		Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
-		ui->paramSlider->setValue(sliderCurrent);
 	}
 
 	setField(2, max);
+
+	update();
 }
 
-void ParamItem::paramSliderChanged(int sliderCurrent) {
-	qDebug() << "paramSliderChanged start";
+void ParamItem::paramSliderReleased() {
+	int sliderCurrent = ui->paramSlider->sliderPosition();
 	Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
 
 	double min = getField(0);
@@ -171,7 +156,6 @@ void ParamItem::paramSliderChanged(int sliderCurrent) {
 	setField(1, current);
 
 	update();
-	qDebug() << "paramSliderChanged end";
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -36,6 +36,7 @@ private:
 	struct ProgSetup {
 		TableModel* outImgsModel; // QString name, QImage* image
 		TableModel* inImgsModel; // QString name, QImage* image
+		//TODO Add var name.
 		TableModel* paramsModel; // double min, int current, double max.
 	};
 	QVector<ProgSetup> progSetups;

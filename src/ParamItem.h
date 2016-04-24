@@ -26,10 +26,10 @@ private:
 	void update();
 
 protected slots:
-	void minEditTextEdited(const QString& text);
-	void currentEditTextEdited(const QString& text);
-	void maxEditTextEdited(const QString& text);
-	void paramSliderChanged(int sliderCurrent);
+	void minEditEditingFinished();
+	void currentEditEditingFinished();
+	void maxEditEditingFinished();
+	void paramSliderReleased();
 };
 
 #endif // PARAMITEM_H_

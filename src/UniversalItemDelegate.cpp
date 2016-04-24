@@ -38,7 +38,6 @@ void UniversalItemDelegate::paint(
 		return;
 	}
 
-	qDebug() << "paint";
 	view->setIndex(index);
 
 	QStyleOptionViewItemV4 opt(option);
@@ -72,7 +71,6 @@ QWidget* UniversalItemDelegate::createEditor(
 	editingRow = index.row();
 
 	ItemWidget* newEditor = editor->clone(parent);
-	qDebug() << "createEditor";
 	newEditor->setIndex(index);
 	return newEditor;
 }
@@ -100,8 +98,6 @@ void UniversalItemDelegate::setModelData(
 	Q_UNUSED(editor);
 	Q_UNUSED(model);
 
-	Q_ASSERT(editingRow == index.row());
 	editingRow = -1;
-	//TODO Maybe to update model.
 }
 
