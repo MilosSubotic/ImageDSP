@@ -26,9 +26,7 @@ private:
 	void update();
 
 protected slots:
-	void minEditEditingFinished();
 	void currentEditEditingFinished();
-	void maxEditEditingFinished();
 	void paramSliderReleased();
 };
 

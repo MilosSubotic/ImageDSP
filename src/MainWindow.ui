@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1176</width>
-    <height>781</height>
+    <height>1063</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,33 +41,33 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="outputImgViewDock">
-     <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-       </sizepolicy>
-     </property>
-     <property name="minimumSize">
-       <size>
-         <width>500</width>
-         <height>500</height>
-       </size>
-     </property>
-     <property name="windowTitle">
-       <string>Output Image</string>
-     </property>
-     <attribute name="dockWidgetArea">
-       <number>2</number>
-     </attribute>
-     <widget class="QWidget" name="outputImgViewDockCentralWidget">
-       <layout class="QVBoxLayout" name="imgViewDockLayout">
-         <item>
-           <layout class="QVBoxLayout" name="outputImgViewLayout"/>
-         </item>
-       </layout>
-     </widget>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>500</width>
+     <height>500</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Output Image</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="outputImgViewDockCentralWidget">
+    <layout class="QVBoxLayout" name="imgViewDockLayout">
+     <item>
+      <layout class="QVBoxLayout" name="outputImgViewLayout"/>
+     </item>
+    </layout>
    </widget>
-   <widget class="QDockWidget" name="progListDock">
+  </widget>
+  <widget class="QDockWidget" name="progListDock">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
      <horstretch>0</horstretch>
@@ -77,7 +77,7 @@
    <property name="minimumSize">
     <size>
      <width>300</width>
-     <height>30</height>
+     <height>174</height>
     </size>
    </property>
    <property name="features">
@@ -93,24 +93,6 @@
     <layout class="QVBoxLayout" name="progListDockLayout">
      <item>
       <widget class="QListView" name="progList"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="addNewInProg">
-         <property name="text">
-          <string>Add New</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteInProg">
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
    </widget>
@@ -144,30 +126,6 @@
     <layout class="QVBoxLayout" name="textureListLayout">
      <item>
       <layout class="QVBoxLayout" name="paramsListLayout"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="paramsListButtonLayout">
-       <item>
-        <widget class="QPushButton" name="addNewParam">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string>Add New</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteParam">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
    </widget>
@@ -230,25 +188,41 @@
    <widget class="QWidget" name="outImgsListDockCentralWidget">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QListView" name="outImgsList"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="outImgsListButtons">
-       <item>
-        <widget class="QPushButton" name="addNewOutImg">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="1">
+        <widget class="QPushButton" name="saveOutImg">
          <property name="text">
-          <string>Add New</string>
+          <string>Save</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="deleteOutImg">
+       <item row="0" column="0">
+        <widget class="QLineEdit" name="outImageText"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="browseOutImg">
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
          <property name="text">
-          <string>Delete</string>
+          <string>Browse...</string>
          </property>
         </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
