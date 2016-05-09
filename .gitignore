@@ -7,3 +7,4 @@ ui_*.h
 *.o
 *.exe
 *.pro.user
+ImageDSP

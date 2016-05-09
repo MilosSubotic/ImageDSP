@@ -19,6 +19,7 @@ QSize UniversalItemDelegate::sizeHint(
 		const QStyleOptionViewItem& option,
 		const QModelIndex& index) const {
 	Q_UNUSED(option);
+	Q_UNUSED(index);
 
 	if(editingRow == index.row()){
 		//view->setIndex(index);
