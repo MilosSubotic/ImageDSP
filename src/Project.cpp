@@ -42,8 +42,8 @@ Project::Project(const QString& fileName, QObject* parent)
 	r2[1] = QVariant::fromValue(new QImage());
 	progSetups[0].outImgsModel->appendRow(r2);
 	r2[0] = QString("playing_kitten");
-	r2[1] = QVariant::fromValue(
-			new QImage(QString("in_img/playing_kitten.jpg")));
+	QImage in = QImage(QString("in_img/slika3.bmp"));
+	r2[1] = QVariant::fromValue(new QImage(in.convertToFormat(QImage().Format_RGB888)));
 	progSetups[0].inImgsModel->appendRow(r2);
 	r3[0] = 0;
 	r3[1] = 0;

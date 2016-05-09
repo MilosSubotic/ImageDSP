@@ -18,8 +18,8 @@ public:
 private:
 	Ui_mainWindow* ui;
 	Project* project;
-	ImageViewer* imageViewer;
-
+	ImageViewer* inputImageViewer;
+	ImageViewer* outputImageViewer;
 private slots:
 	void updateImageViews();
 };

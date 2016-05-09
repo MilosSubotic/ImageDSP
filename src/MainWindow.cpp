@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget* parent)
 	ui->setupUi(this);
 
 	tabifyDockWidget(ui->outImgsListDock, ui->inImgsListDock);
-	tabifyDockWidget(ui->outImgsListDock, ui->paramsListDock);
+	tabifyDockWidget(ui->outImgsListDock, ui->progListDock);
 
 	project = new Project("prj/test_prj.xml", this);
 
@@ -61,9 +61,11 @@ MainWindow::MainWindow(QWidget* parent)
 
 	//TODO Setup QListView for in and out images and make them without editors.
 	// Make possible to open new ImageView on double click.
+	inputImageViewer = new ImageViewer(this);
+	ui->inputImgViewLayout->addWidget(inputImageViewer);
 
-	imageViewer = new ImageViewer(this);
-	ui->imgViewLayout->addWidget(imageViewer);
+	outputImageViewer = new ImageViewer(this);
+	ui->outputImgViewLayout->addWidget(outputImageViewer);
 }
 
 MainWindow::~MainWindow() {
@@ -73,10 +75,16 @@ MainWindow::~MainWindow() {
 void MainWindow::updateImageViews() {
 	//TODO Add map of out and in QImage* to ImageViewer* fo updating.
 
-	QAbstractItemModel* m = project->getOutImgsModel();
+	QAbstractItemModel* m = project->getInImgsModel();
 	QVariant v = m->data(m->index(0, 1));
 	QImage* i = v.value<QImage*>();
+	
+	inputImageViewer->setImage(*i);
 
-	imageViewer->setImage(*i);
-	//imageViewer->adjustSize();
+	QAbstractItemModel* m2 = project->getOutImgsModel();
+	QVariant v2 = m2->data(m2->index(0, 1));
+	QImage* i2 = v2.value<QImage*>();
+
+
+	outputImageViewer->setImage(*i2);
 }
