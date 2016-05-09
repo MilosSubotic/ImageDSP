@@ -22,6 +22,17 @@ private:
 	ImageViewer* outputImageViewer;
 private slots:
 	void updateImageViews();
+	void initializeProgramListTab();
+	void initializeOutputImageTab();
+	void initializeInputImageTab();
+	void initializeImageViews();
+	void initializeParamView();
+
+	void outputFileBrowse();
+	void saveOutputFile();
+	void inputFileAdd();
+	void inputFileDelete();
+
 };
 
 #endif // MAINWINDOW_H

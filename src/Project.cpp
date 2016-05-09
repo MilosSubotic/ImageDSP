@@ -45,9 +45,9 @@ Project::Project(const QString& fileName, QObject* parent)
 	QImage in = QImage(QString("in_img/slika3.bmp"));
 	r2[1] = QVariant::fromValue(new QImage(in.convertToFormat(QImage().Format_RGB888)));
 	progSetups[0].inImgsModel->appendRow(r2);
-	r3[0] = 0;
+	r3[0] = 0.0;
 	r3[1] = 0;
-	r3[2] = 255;
+	r3[2] = 1.0;
 	progSetups[0].paramsModel->appendRow(r3);
 	progSetups[0].paramsModel->appendRow(r3);
 	progSetups[0].paramsModel->appendRow(r3);
