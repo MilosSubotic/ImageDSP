@@ -47,11 +47,13 @@ void ParamItem::setIndex(const QModelIndex& index) {
 }
 
 void ParamItem::update() {
-	double min = getField(0);
-	double current = getField(1);
-	double max = getField(2);
+	double min = getDoubleField(1);
+	double current = getDoubleField(2);
+	double max = getDoubleField(3);
 	Q_ASSERT(min <= max);
 	Q_ASSERT(min <= current && current <= max);
+
+	ui->paramName->setText(getStringField(0));
 
 	ui->minEdit->setText(QString::number(min));
 
@@ -64,7 +66,7 @@ void ParamItem::update() {
 	ui->paramSlider->setValue(sliderCurrent);
 }
 
-double ParamItem::getField(int column) {
+double ParamItem::getDoubleField(int column) {
 	const QAbstractItemModel* model = currentIndex.model();
 	//TODO Handle errors.
 	bool doubleOk;
@@ -73,6 +75,16 @@ double ParamItem::getField(int column) {
 			&doubleOk);
 	Q_ASSERT(doubleOk);
 	return d;
+}
+
+QString ParamItem::getStringField(int column) {
+	const QAbstractItemModel* model = currentIndex.model();
+	//TODO Handle errors.
+	QString s =
+			model->data(
+					model->index(currentIndex.row(), column, QModelIndex()))
+					.toString();
+	return s;
 }
 
 void ParamItem::setField(int column, double value) {
@@ -85,28 +97,28 @@ void ParamItem::setField(int column, double value) {
 
 void ParamItem::minEditEditingFinished() {
 	double min = ui->minEdit->text().toDouble();
-	double current = getField(1);
-	double max = getField(2);
+	double current = getDoubleField(2);
+	double max = getDoubleField(3);
 
 	if(max < min) {
 		max = min;
-		setField(2, max);
+		setField(3, max);
 	}
 
 	if(current < min) {
 		current = min;
-		setField(1, current);
+		setField(2, current);
 	}
 
-	setField(0, min);
+	setField(1, min);
 
 	update();
 }
 
 void ParamItem::currentEditEditingFinished() {
-	double min = getField(0);
+	double min = getDoubleField(1);
 	double current = ui->currentEdit->text().toDouble();
-	double max = getField(2);
+	double max = getDoubleField(3);
 
 	if(current < min){
 		current = min;
@@ -120,27 +132,27 @@ void ParamItem::currentEditEditingFinished() {
 	int sliderCurrent = qRound64((current - min) / (max - min) * 100);
 	current = double(sliderCurrent)/100*(max - min) + min;
 
-	setField(1, current);
+	setField(2, current);
 
 	update();
 }
 
 void ParamItem::maxEditEditingFinished() {
-	double min = getField(0);
-	double current = getField(1);
+	double min = getDoubleField(1);
+	double current = getDoubleField(2);
 	double max = ui->maxEdit->text().toDouble();
 
 	if(min > max) {
 		min = max;
-		setField(0, min);
+		setField(1, min);
 	}
 
 	if(current > max) {
 		current = max;
-		setField(1, current);
+		setField(2, current);
 	}
 
-	setField(2, max);
+	setField(3, max);
 
 	update();
 }
@@ -149,11 +161,11 @@ void ParamItem::paramSliderReleased() {
 	int sliderCurrent = ui->paramSlider->sliderPosition();
 	Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
 
-	double min = getField(0);
-	double max = getField(2);
+	double min = getDoubleField(1);
+	double max = getDoubleField(3);
 	double current = double(sliderCurrent)/100*(max - min) + min;
 
-	setField(1, current);
+	setField(2, current);
 
 	update();
 }

@@ -35,36 +35,30 @@ Project::Project(const QString& fileName, QObject* parent)
 			SLOT(dataChanged(QModelIndex, QModelIndex)));
 
 	//TODO Hard-coded for debug.
-	QVector<QVariant> r3(3);
+	QVector<QVariant> r4(4);
 	QVector<QVariant> r2(2);
 	appendProg("rgb2yuv");
-	r2[0] = QString("playing_kitten_processed");
-	r2[1] = QVariant::fromValue(new QImage());
-	progSetups[0].outImgsModel->appendRow(r2);
+	appendProg("yuv2rgb");
 	r2[0] = QString("playing_kitten");
 	QImage in = QImage(QString("in_img/slika3.bmp"));
 	r2[1] = QVariant::fromValue(new QImage(in.convertToFormat(QImage().Format_RGB888)));
 	progSetups[0].inImgsModel->appendRow(r2);
-	r3[0] = 0;
-	r3[1] = 0;
-	r3[2] = 255;
-	progSetups[0].paramsModel->appendRow(r3);
-	progSetups[0].paramsModel->appendRow(r3);
-	progSetups[0].paramsModel->appendRow(r3);
+	progSetups[1].inImgsModel->appendRow(r2);
+	r2[0] = QString("playing_kitten_processed");
+	r2[1] = QVariant::fromValue(new QImage());
+	progSetups[0].outImgsModel->appendRow(r2);
+	progSetups[1].outImgsModel->appendRow(r2);
+	r4[0] = "param1";
+	r4[1] = 0;
+	r4[2] = 0;
+	r4[3] = 255;
+	progSetups[0].paramsModel->appendRow(r4);
+	progSetups[0].paramsModel->appendRow(r4);
+	progSetups[0].paramsModel->appendRow(r4);
+	progSetups[1].paramsModel->appendRow(r4);
+	progSetups[1].paramsModel->appendRow(r4);
+	progSetups[1].paramsModel->appendRow(r4);
 
-	appendProg("yuv2rgb");
-	r3[0] = 0;
-	r3[1] = 50;
-	r3[2] = 100;
-	progSetups[1].paramsModel->appendRow(r3);
-	r3[0] = 0.0;
-	r3[1] = 0.1;
-	r3[2] = 1.0;
-	progSetups[1].paramsModel->appendRow(r3);
-	r3[0] = -3.0;
-	r3[1] = -2.4;
-	r3[2] = -1.0;
-	progSetups[1].paramsModel->appendRow(r3);
 }
 
 QAbstractItemModel* Project::getProgsModel() const {
@@ -94,7 +88,7 @@ void Project::appendProg(const QString& name) {
 	progsModel->appendRow(row);
 
 	ProgSetup ps;
-	ps.paramsModel = new TableModel(3, this);
+	ps.paramsModel = new TableModel(4, this);
 	ps.inImgsModel = new TableModel(2, this);
 	ps.outImgsModel = new TableModel(2, this);
 	progSetups.push_back(ps);
@@ -130,7 +124,7 @@ void Project::imageProcessing() {
 	int paramsCount = paramsProxyModel->rowCount();
 	QVector<double> params(paramsCount);
 	for(int i = 0; i < paramsCount; i++){
-		QVariant v = paramsProxyModel->data(paramsProxyModel->index(i, 1));
+		QVariant v = paramsProxyModel->data(paramsProxyModel->index(i, 2));
 		params[i] = v.toDouble();
 	}
 

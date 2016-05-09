@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>401</width>
-    <height>177</height>
+    <height>181</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,6 +20,13 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="paramName">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QSlider" name="paramSlider">
      <property name="orientation">
