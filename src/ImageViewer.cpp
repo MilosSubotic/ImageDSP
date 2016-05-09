@@ -24,7 +24,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#define SCALE_FACTOR 1.15
+#define SCALE_FACTOR 1.0
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -46,8 +46,6 @@ void ImageViewer::setImage(const QImage& image) {
 	_scene->addPixmap(QPixmap::fromImage(image));
 	if(_firstSetImage){
 		_firstSetImage = false;
-		//FIXME This not working.
-		//zoomToFit();
 	}
 }
 

@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Image DSP</string>
   </property>
-  <widget class="QDockWidget" name="imgViewDock">
+  <widget class="QDockWidget" name="inputImgViewDock">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
      <horstretch>0</horstretch>
@@ -27,20 +27,47 @@
     </size>
    </property>
    <property name="windowTitle">
-    <string>Image View</string>
+    <string>Input Image</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>2</number>
+    <number>1</number>
    </attribute>
-   <widget class="QWidget" name="imgViewDockCentralWidget">
-    <layout class="QVBoxLayout" name="imgViewDockLayout">
+   <widget class="QWidget" name="inputImgViewDockCentralWidget">
+    <layout class="QVBoxLayout" name="inputImgViewDockLayout">
      <item>
-      <layout class="QVBoxLayout" name="imgViewLayout"/>
+      <layout class="QVBoxLayout" name="inputImgViewLayout"/>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="progListDock">
+  <widget class="QDockWidget" name="outputImgViewDock">
+     <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+       <size>
+         <width>500</width>
+         <height>500</height>
+       </size>
+     </property>
+     <property name="windowTitle">
+       <string>Output Image</string>
+     </property>
+     <attribute name="dockWidgetArea">
+       <number>2</number>
+     </attribute>
+     <widget class="QWidget" name="outputImgViewDockCentralWidget">
+       <layout class="QVBoxLayout" name="imgViewDockLayout">
+         <item>
+           <layout class="QVBoxLayout" name="outputImgViewLayout"/>
+         </item>
+       </layout>
+     </widget>
+   </widget>
+   <widget class="QDockWidget" name="progListDock">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
      <horstretch>0</horstretch>
@@ -98,14 +125,14 @@
    <property name="minimumSize">
     <size>
      <width>300</width>
-     <height>500</height>
+     <height>300</height>
     </size>
    </property>
    <property name="windowTitle">
     <string>Parameters</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="paramsListDockCentralWidget">
     <property name="sizePolicy">
