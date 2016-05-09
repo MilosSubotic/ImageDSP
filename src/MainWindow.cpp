@@ -47,6 +47,10 @@ MainWindow::~MainWindow() {
 void MainWindow::updateImageViews() {
 	//TODO Add map of out and in QImage* to ImageViewer* fo updating.
 
+	inputImageViewer->clear();
+	outputImageViewer->clear();
+
+
 	inputImageViewer->setImage(*project->getCurrentInImg());
 
 	outputImageViewer->setImage(*project->getCurrentOutImg());

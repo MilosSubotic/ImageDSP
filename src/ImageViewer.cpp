@@ -44,6 +44,7 @@ ImageViewer::~ImageViewer() {
 
 void ImageViewer::setImage(const QImage& image) {
 	_scene->addPixmap(QPixmap::fromImage(image));
+	_scene->setSceneRect(0, 0, image.width(), image.height());
 	if(_firstSetImage){
 		_firstSetImage = false;
 	}
