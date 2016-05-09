@@ -7,6 +7,7 @@
 #include "HoverEditTriggerListView.h"
 #include "ParamItem.h"
 
+#include <QShortcut>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDebug>
@@ -20,14 +21,17 @@ MainWindow::MainWindow(QWidget* parent)
 	tabifyDockWidget(ui->outImgsListDock, ui->inImgsListDock);
 	tabifyDockWidget(ui->outImgsListDock, ui->progListDock);
 
-	project = new Project("prj/test_prj.xml", this);
+	project = new Project("prjs/color_space_conv.imgdsp", this);
 
-	
+
 	connect(
 		project,
 		SIGNAL(imageProcessingDone()),
 		this,
 		SLOT(updateImageViews()));
+
+	QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+S"), this);
+	connect(shortcut, SIGNAL(activated()), project, SLOT(save()));
 
 	initializeProgramListTab();
 	initializeInputImageTab();
@@ -43,13 +47,9 @@ MainWindow::~MainWindow() {
 void MainWindow::updateImageViews() {
 	//TODO Add map of out and in QImage* to ImageViewer* fo updating.
 
-	QAbstractItemModel* mi = project->getInImgsModel();
-	QImage* ii = mi->data(mi->index(0, 1)).value<QImage*>();
-	inputImageViewer->setImage(*ii);
+	inputImageViewer->setImage(*project->getCurrentInImg());
 
-	QAbstractItemModel* mo = project->getOutImgsModel();
-	QImage* io = mo->data(mo->index(0, 1)).value<QImage*>();
-	outputImageViewer->setImage(*io);
+	outputImageViewer->setImage(*project->getCurrentOutImg());
 }
 
 void MainWindow::initializeProgramListTab()
@@ -61,7 +61,7 @@ void MainWindow::initializeProgramListTab()
 			SIGNAL(clicked(QModelIndex)),
 			project,
 			SLOT(currentProgChanged(QModelIndex)));
-	
+
 	/*
 	ui->progList->setCurrentIndex(
 		project->getProgsModel()->index(0, 0, QModelIndex())
@@ -96,7 +96,7 @@ void MainWindow::initializeInputImageTab()
 			ui->inImgsList,
 			SIGNAL(clicked(QModelIndex)),
 			project,
-			SLOT(currentDataChanged(QModelIndex)));
+			SLOT(currentInImgChanged(QModelIndex)));
 }
 
 void MainWindow::initializeImageViews()
@@ -145,8 +145,8 @@ void MainWindow::inputFileAdd()
 {
 	QString filename = QFileDialog::getOpenFileName(this,
 		tr("Open Image"), QString(), tr("Image Files (*.png *.jpg *.bmp)"));
-	
-	
+
+
 	QImage in = QImage(QString(filename));
 	QVariant tmp = QVariant::fromValue(new QImage(in.convertToFormat(QImage().Format_RGB888)));
 	//TO DO: add image to table model

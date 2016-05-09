@@ -12,9 +12,9 @@ Q_OBJECT
 public:
 	explicit TableModel(int columns, QObject *parent = 0);
 
-	int rowCount(const QModelIndex& parent) const;
-	int columnCount(const QModelIndex& parent) const;
-	QVariant data(const QModelIndex& index, int role) const;
+	int rowCount(const QModelIndex& parent = QModelIndex()) const;
+	int columnCount(const QModelIndex& parent = QModelIndex()) const;
+	QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 	Qt::ItemFlags flags(const QModelIndex& index) const;
 	bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
 	bool insertRows(int position, int rows, const QModelIndex& index = QModelIndex());

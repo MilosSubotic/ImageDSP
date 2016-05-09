@@ -24,8 +24,13 @@ public:
 	QAbstractItemModel* getInImgsModel() const;
 	QAbstractItemModel* getParamsModel() const;
 
+	QImage* getCurrentOutImg() const;
+	QImage* getCurrentInImg() const;
+
 public slots:
+	void save();
 	void currentProgChanged(const QModelIndex& index);
+	void currentInImgChanged(const QModelIndex& index);
 
 private:
 	QString fileName;
@@ -44,8 +49,6 @@ private:
 	};
 	QVector<ProgSetup> progSetups;
 
-	QSortFilterProxyModel* outImgsProxyModel;
-	QSortFilterProxyModel* inImgsProxyModel;
 	QSortFilterProxyModel* paramsProxyModel;
 
 	void appendProg(const QString& name);

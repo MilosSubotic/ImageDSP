@@ -18,12 +18,14 @@ Project::Project(const QString& fileName, QObject* parent)
 		: QObject(parent), fileName(fileName) {
 	progsModel = new TableModel(1, this);
 
-	outImgsProxyModel = new QSortFilterProxyModel(this);
-	inImgsProxyModel = new QSortFilterProxyModel(this);
 	paramsProxyModel = new QSortFilterProxyModel(this);
 
 	inImgsModel = new TableModel(2, this);
 	outImgsModel = new TableModel(2, this);
+
+	currentProg = 0;
+	currentInImg = 0;
+	currentOutImg = 0;
 
 	connect(
 			progsModel,
@@ -38,7 +40,7 @@ Project::Project(const QString& fileName, QObject* parent)
 			SLOT(dataChanged(QModelIndex, QModelIndex)));
 
 	// Open project file.
-	QFile xmlFile("prjs/color_space_conv.imgdsp");
+	QFile xmlFile(fileName);
 	// TODO Check if file is open.
 	xmlFile.open(QFile::ReadOnly | QFile::Text);
 	QXmlStreamReader xml(&xmlFile);
@@ -86,24 +88,109 @@ Project::Project(const QString& fileName, QObject* parent)
 	}
 }
 
+void Project::save() {
+	QFile xmlFile(fileName);
+	// TODO Check if file is open.
+	xmlFile.open(QFile::WriteOnly | QFile::Text);
+	QXmlStreamWriter xml(&xmlFile);
+	xml.setAutoFormatting(true);
+	xml.writeStartDocument();
+	xml.writeDTD("<!DOCTYPE imgdsp>");
+	xml.writeStartElement("imgdsp");
+
+	xml.writeStartElement("programs");
+	for(int prog = 0; prog < progsModel->rowCount(); prog++){
+		xml.writeStartElement("program");
+		xml.writeAttribute(
+			"name",
+			progsModel->data(progsModel->index(prog, 0)).toString()
+		);
+
+		TableModel* paramsModel = progSetups[prog].paramsModel;
+		xml.writeStartElement("params");
+		for(int param = 0; param < paramsModel->rowCount(); param++){
+			xml.writeStartElement("param");
+			xml.writeAttribute(
+				"name",
+				paramsModel->data(paramsModel->index(param, 0)).toString()
+			);
+			xml.writeAttribute(
+				"min",
+				paramsModel->data(paramsModel->index(param, 1)).toString()
+			);
+			xml.writeAttribute(
+				"current",
+				paramsModel->data(paramsModel->index(param, 2)).toString()
+			);
+			xml.writeAttribute(
+				"max",
+				paramsModel->data(paramsModel->index(param, 3)).toString()
+			);
+			xml.writeEndElement(); // param
+		}
+		xml.writeEndElement(); // params
+
+		xml.writeEndElement(); // program
+	}
+	xml.writeEndElement(); // programs
+
+	xml.writeStartElement("in_imgs");
+	for(int i = 0; i < inImgsModel->rowCount(); i++){
+		xml.writeStartElement("in_img");
+		xml.writeAttribute(
+			"file_name",
+			inImgsModel->data(inImgsModel->index(i, 0)).toString()
+		);
+		xml.writeEndElement(); // in_ img
+	}
+	xml.writeEndElement(); // in_imgs
+
+	xml.writeStartElement("out_imgs");
+	for(int i = 0; i < outImgsModel->rowCount(); i++){
+		xml.writeStartElement("out_img");
+		xml.writeAttribute(
+			"file_name",
+			outImgsModel->data(outImgsModel->index(i, 0)).toString()
+		);
+		xml.writeEndElement(); // out_img
+	}
+	xml.writeEndElement(); // out_imgs
+
+	xml.writeEndElement(); // imgdsp
+	xml.writeEndDocument();
+	xmlFile.close();
+}
+
 QAbstractItemModel* Project::getProgsModel() const {
 	return progsModel;
 }
 QAbstractItemModel* Project::getOutImgsModel() const {
-	return outImgsProxyModel;
+	return outImgsModel;
 }
 QAbstractItemModel* Project::getInImgsModel() const {
-	return inImgsProxyModel;
+	return inImgsModel;
 }
 QAbstractItemModel* Project::getParamsModel() const {
 	return paramsProxyModel;
 }
 
+QImage* Project::getCurrentOutImg() const {
+	return outImgsModel->data(outImgsModel->index(currentOutImg, 1))
+			.value<QImage*>();
+}
+QImage* Project::getCurrentInImg() const {
+	return inImgsModel->data(inImgsModel->index(currentInImg, 1))
+			.value<QImage*>();
+}
+
 void Project::currentProgChanged(const QModelIndex& index) {
 	currentProg = index.row();
 	paramsProxyModel->setSourceModel(progSetups[currentProg].paramsModel);
-	inImgsProxyModel->setSourceModel(inImgsModel);
-	outImgsProxyModel->setSourceModel(outImgsModel);
+
+	imageProcessing();
+}
+void Project::currentInImgChanged(const QModelIndex& index) {
+	currentInImg = index.row();
 
 	imageProcessing();
 }
@@ -130,17 +217,19 @@ void Project::imageProcessing() {
 
 	QString progName = progsModel->get(currentProg, 0).toString();
 
-	int outImgsCount = outImgsProxyModel->rowCount();
+	// TODO Correct this.
+	int outImgsCount = outImgsModel->rowCount();
 	QVector<QImage*> outImgs(outImgsCount);
 	for(int i = 0; i < outImgsCount; i++){
-		QVariant v = outImgsProxyModel->data(outImgsProxyModel->index(i, 1));
+		QVariant v = outImgsModel->data(outImgsModel->index(i, 1));
 		outImgs[i] = v.value<QImage*>();
 	}
 
-	int inImgsCount = inImgsProxyModel->rowCount();
+	// TODO Correct this.
+	int inImgsCount = inImgsModel->rowCount();
 	QVector<const QImage*> inImgs(inImgsCount);
 	for(int i = 0; i < inImgsCount; i++){
-		QVariant v = inImgsProxyModel->data(inImgsProxyModel->index(i, 1));
+		QVariant v = inImgsModel->data(inImgsModel->index(i, 1));
 		inImgs[i] = v.value<QImage*>();
 	}
 
@@ -151,6 +240,7 @@ void Project::imageProcessing() {
 		params[i] = v.toDouble();
 	}
 
+	// TODO Correct this.
 	imageProcessingFun(progName, outImgs, inImgs, params);
 
 	emit imageProcessingDone();
