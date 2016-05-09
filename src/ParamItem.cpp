@@ -9,7 +9,7 @@ ParamItem::ParamItem(QWidget* parent)
 	ui->setupUi(this);
 
 	ui->CurrentValueEdit->setValidator(new QDoubleValidator());
-	
+
 	connect(
 			ui->CurrentValueEdit,
 			SIGNAL(editingFinished()),
@@ -32,13 +32,13 @@ void ParamItem::setIndex(const QModelIndex& index) {
 }
 
 void ParamItem::update() {
-	double min = getField(0);
-	double current = getField(1);
-	double max = getField(2);
+	double min = getDoubleField(1);
+	double current = getDoubleField(2);
+	double max = getDoubleField(3);
 	Q_ASSERT(min <= max);
 	Q_ASSERT(min <= current && current <= max);
 
-	//TODO: Update control name
+	ui->paramName->setText(getStringField(0));
 
 	ui->MinLabel->setText(QString::number(min));
 
@@ -51,7 +51,7 @@ void ParamItem::update() {
 	ui->paramSlider->setValue(sliderCurrent);
 }
 
-double ParamItem::getField(int column) {
+double ParamItem::getDoubleField(int column) {
 	const QAbstractItemModel* model = currentIndex.model();
 	//TODO Handle errors.
 	bool doubleOk;
@@ -60,6 +60,16 @@ double ParamItem::getField(int column) {
 			&doubleOk);
 	Q_ASSERT(doubleOk);
 	return d;
+}
+
+QString ParamItem::getStringField(int column) {
+	const QAbstractItemModel* model = currentIndex.model();
+	//TODO Handle errors.
+	QString s =
+			model->data(
+					model->index(currentIndex.row(), column, QModelIndex()))
+					.toString();
+	return s;
 }
 
 void ParamItem::setField(int column, double value) {
@@ -72,9 +82,9 @@ void ParamItem::setField(int column, double value) {
 
 
 void ParamItem::currentEditEditingFinished() {
-	double min = getField(0);
+	double min = getDoubleField(1);
 	double current = ui->CurrentValueEdit->text().toDouble();
-	double max = getField(2);
+	double max = getDoubleField(3);
 
 	if(current < min){
 		current = min;
@@ -88,7 +98,7 @@ void ParamItem::currentEditEditingFinished() {
 	int sliderCurrent = qRound64((current - min) / (max - min) * 100);
 	current = double(sliderCurrent)/100*(max - min) + min;
 
-	setField(1, current);
+	setField(2, current);
 
 	update();
 }
@@ -97,11 +107,11 @@ void ParamItem::paramSliderReleased() {
 	int sliderCurrent = ui->paramSlider->sliderPosition();
 	Q_ASSERT(0 <= sliderCurrent && sliderCurrent <= 100);
 
-	double min = getField(0);
-	double max = getField(2);
+	double min = getDoubleField(1);
+	double max = getDoubleField(3);
 	double current = double(sliderCurrent)/100*(max - min) + min;
 
-	setField(1, current);
+	setField(2, current);
 
 	update();
 }

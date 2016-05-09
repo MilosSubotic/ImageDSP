@@ -21,7 +21,8 @@ private:
 
 	QModelIndex currentIndex;
 
-	double getField(int column);
+	double getDoubleField(int column);
+	QString getStringField(int column);
 	void setField(int column, double value);
 	void update();
 

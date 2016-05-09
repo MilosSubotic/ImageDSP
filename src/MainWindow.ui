@@ -139,7 +139,7 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>218</width>
+     <width>238</width>
      <height>200</height>
     </size>
    </property>
@@ -156,24 +156,6 @@
     <layout class="QVBoxLayout" name="inImgsListDockLayout">
      <item>
       <widget class="QListView" name="inImgsList"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="addNewInImg">
-         <property name="text">
-          <string>Add New</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteInImg">
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
    </widget>
