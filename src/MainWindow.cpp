@@ -75,16 +75,11 @@ MainWindow::~MainWindow() {
 void MainWindow::updateImageViews() {
 	//TODO Add map of out and in QImage* to ImageViewer* fo updating.
 
-	QAbstractItemModel* m = project->getInImgsModel();
-	QVariant v = m->data(m->index(0, 1));
-	QImage* i = v.value<QImage*>();
-	
-	inputImageViewer->setImage(*i);
+	QAbstractItemModel* mi = project->getInImgsModel();
+	QImage* ii = mi->data(mi->index(0, 1)).value<QImage*>();
+	inputImageViewer->setImage(*ii);
 
-	QAbstractItemModel* m2 = project->getOutImgsModel();
-	QVariant v2 = m2->data(m2->index(0, 1));
-	QImage* i2 = v2.value<QImage*>();
-
-
-	outputImageViewer->setImage(*i2);
+	QAbstractItemModel* mo = project->getOutImgsModel();
+	QImage* io = mo->data(mo->index(0, 1)).value<QImage*>();
+	outputImageViewer->setImage(*io);
 }

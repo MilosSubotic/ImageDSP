@@ -40,8 +40,9 @@ Project::Project(const QString& fileName, QObject* parent)
 	appendProg("rgb2yuv");
 	appendProg("yuv2rgb");
 	r2[0] = QString("playing_kitten");
-	QImage in = QImage(QString("in_img/slika3.bmp"));
-	r2[1] = QVariant::fromValue(new QImage(in.convertToFormat(QImage().Format_RGB888)));
+	QImage in = QImage(QString("in_img/playing_kitten.jpg"));
+	r2[1] = QVariant::fromValue(
+			new QImage(in.convertToFormat(QImage::Format_RGB888)));
 	progSetups[0].inImgsModel->appendRow(r2);
 	progSetups[1].inImgsModel->appendRow(r2);
 	r2[0] = QString("playing_kitten_processed");
