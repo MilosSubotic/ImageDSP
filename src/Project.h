@@ -33,9 +33,12 @@ private:
 	TableModel* progsModel; // QString name
 	int currentProg;
 
+	TableModel* outImgsModel; // QString name, QImage* image
+	int currentOutImg;
+	TableModel* inImgsModel; // QString name, QImage* image
+	int currentInImg;
+
 	struct ProgSetup {
-		TableModel* outImgsModel; // QString name, QImage* image
-		TableModel* inImgsModel; // QString name, QImage* image
 		// QString name, double min, int current, double max.
 		TableModel* paramsModel;
 	};
