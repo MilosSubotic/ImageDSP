@@ -217,22 +217,6 @@ void Project::imageProcessing() {
 
 	QString progName = progsModel->get(currentProg, 0).toString();
 
-	// TODO Correct this.
-	int outImgsCount = outImgsModel->rowCount();
-	QVector<QImage*> outImgs(outImgsCount);
-	for(int i = 0; i < outImgsCount; i++){
-		QVariant v = outImgsModel->data(outImgsModel->index(i, 1));
-		outImgs[i] = v.value<QImage*>();
-	}
-
-	// TODO Correct this.
-	int inImgsCount = inImgsModel->rowCount();
-	QVector<const QImage*> inImgs(inImgsCount);
-	for(int i = 0; i < inImgsCount; i++){
-		QVariant v = inImgsModel->data(inImgsModel->index(i, 1));
-		inImgs[i] = v.value<QImage*>();
-	}
-
 	int paramsCount = paramsProxyModel->rowCount();
 	QVector<double> params(paramsCount);
 	for(int i = 0; i < paramsCount; i++){
@@ -240,8 +224,7 @@ void Project::imageProcessing() {
 		params[i] = v.toDouble();
 	}
 
-	// TODO Correct this.
-	imageProcessingFun(progName, outImgs, inImgs, params);
+	imageProcessingFun(progName, getCurrentOutImg(), getCurrentInImg(), params);
 
 	emit imageProcessingDone();
 }

@@ -8,8 +8,8 @@
 
 void imageProcessingFun(
 		const QString& progName,
-		const QVector<QImage*>& outImgs,
-		const QVector<const QImage*>& inImgs,
+		QImage* const outImgs,
+		const QImage* const inImgs,
 		const QVector<double>& params);
 
 #endif // IMAGEPROCESSING_H_
