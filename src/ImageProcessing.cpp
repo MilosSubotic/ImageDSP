@@ -1,64 +1,62 @@
 
 #include "ImageProcessing.h"
 #include "ColorSpaces.h"
+#include "ImageFilter.h"
 
 #include <QDebug>
 
 void imageProcessingFun(const QString& progName, QImage* const outImgs, const QImage* const inImgs, const QVector<double>& params) 
 {
-	uchar* Y_buff;
-	char* U_buff;
-	char* V_buff;
+	/* Create buffers for YUV image */
+	uchar* Y_buff = new uchar[inImgs->width()*inImgs->height()];
+	char* U_buff = new char[inImgs->width()*inImgs->height()/4];
+	char* V_buff = new char[inImgs->width()*inImgs->height()/4];
 
-	*outImgs = *(new QImage(inImgs->width(), inImgs->height(), inImgs->format()));
-	
-	if(progName == "YUV444") 
+	int X_SIZE = inImgs->width();
+	int Y_SIZE = inImgs->height();
+
+	/* Create empty output image */
+	*outImgs = *(new QImage(X_SIZE, Y_SIZE, inImgs->format()));
+
+	/* Convert input image to YUV420 image */
+	RGBtoYUV420(inImgs->bits(), X_SIZE, Y_SIZE, Y_buff, U_buff, V_buff);
+
+	/* Processing is done only on Y component (grayscale image) */
+	if(progName == "NF Filter") 
 	{	
-		Y_buff = new uchar[inImgs->width()*inImgs->height()];
-		U_buff = new char[inImgs->width()*inImgs->height()];
-		V_buff = new char[inImgs->width()*inImgs->height()];
-
-		RGBtoYUV444(inImgs->bits(), inImgs->width(), inImgs->height(), Y_buff, U_buff, V_buff);
-		procesing_YUV444(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), params[0], params[1], params[2]);
-		YUV444toRGB(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), outImgs->bits());
-
-		delete[] Y_buff;
-		delete[] U_buff;
-		delete[] V_buff;
-
+		/* Perform NF filter */
+		performNFFilter(Y_buff, X_SIZE, Y_SIZE);
 	}
-	else if (progName == "YUV422") 
+	else if (progName == "VF Filter") 
 	{
-		Y_buff = new uchar[inImgs->width()*inImgs->height()];
-		U_buff = new char[inImgs->width()*inImgs->height()/2];
-		V_buff = new char[inImgs->width()*inImgs->height()/2];
-
-		RGBtoYUV422(inImgs->bits(), inImgs->width(), inImgs->height(), Y_buff, U_buff, V_buff);
-		procesing_YUV422(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), params[0], params[1], params[2]);
-		YUV422toRGB(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), outImgs->bits());
-
-		delete[] Y_buff;
-		delete[] U_buff;
-		delete[] V_buff;
+		/* Perform VF filter */
+		performVFFilter(Y_buff, X_SIZE, Y_SIZE);
 	}
-	else if (progName == "YUV420") 
+	else if(progName == "Successive NF Filter") 
+	{	
+		/* Perform successive NF filter */
+		performSuccessiveVFFilter(Y_buff, X_SIZE, Y_SIZE, params[0]);
+	
+	}
+	else if (progName == "Edge Detection") 
 	{
-		Y_buff = new uchar[inImgs->width()*inImgs->height()];
-		U_buff = new char[inImgs->width()*inImgs->height()/4];
-		V_buff = new char[inImgs->width()*inImgs->height()/4];
-
-		RGBtoYUV420(inImgs->bits(), inImgs->width(), inImgs->height(), Y_buff, U_buff, V_buff);
-		procesing_YUV420(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), params[0], params[1], params[2]);
-		YUV420toRGB(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), outImgs->bits());
-
-		delete[] Y_buff;
-		delete[] U_buff;
-		delete[] V_buff;
+		performSobelEdgeDetection(Y_buff, X_SIZE, Y_SIZE, params[0]);
 	}
-	else if (progName == "RGB")
+	else if (progName == "NF Filter + Edge Detection") 
 	{
-		processing_RGB(inImgs->bits(), inImgs->width(), inImgs->height(), outImgs->bits(), params[0], params[1], params[2]);
+		performNFplusSobelEdgeDetection(Y_buff, X_SIZE, Y_SIZE, params[0], params[1]);
 	}
+
+	/* Zero out U and V component. */
+	procesing_YUV420(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), 1, 0, 0);
+
+	/* Convert YUV image back to RGB */
+	YUV420toRGB(Y_buff, U_buff, V_buff, inImgs->width(), inImgs->height(), outImgs->bits());
+
+	/* Delete used memory buffers */
+	delete[] Y_buff;
+	delete[] U_buff;
+	delete[] V_buff;
 
 }
 

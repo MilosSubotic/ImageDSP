@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget* parent)
 	tabifyDockWidget(ui->outImgsListDock, ui->inImgsListDock);
 	tabifyDockWidget(ui->outImgsListDock, ui->progListDock);
 
-	project = new Project("prjs/color_space_conv.imgdsp", this);
+	project = new Project("prjs/convolution_edge_detection.imgdsp", this);
 
 
 	connect(

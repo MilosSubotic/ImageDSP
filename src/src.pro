@@ -19,7 +19,8 @@ SOURCES += \
 	TableModel.cpp \
 	Project.cpp \
 	ImageProcessing.cpp \
-	ColourSpaces.cpp
+	ColorSpaces.cpp \
+	ImageFilter.cpp
 
 HEADERS += \
 	MainWindow.h \
@@ -32,7 +33,8 @@ HEADERS += \
 	TableModel.h \
 	Project.h \
 	ImageProcessing.h \
-	ColourSpaces.h
+	ColorSpaces.h \
+	ImageFilter.h
 
 FORMS += \
 	MainWindow.ui \
