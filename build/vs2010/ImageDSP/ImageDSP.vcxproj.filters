@@ -166,6 +166,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_UniversalItemDelegate.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\ImageFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\ColorSpaces.h">
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_ParamItem.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ImageFilter.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

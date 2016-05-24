@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\ColorSpaces.cpp" />
     <ClCompile Include="..\..\..\src\HoverEditTriggerListView.cpp" />
+    <ClCompile Include="..\..\..\src\ImageFilter.cpp" />
     <ClCompile Include="..\..\..\src\ImageProcessing.cpp" />
     <ClCompile Include="..\..\..\src\ImageViewer.cpp" />
     <ClCompile Include="..\..\..\src\InImgItem.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\ColorSpaces.h" />
+    <ClInclude Include="..\..\..\src\ImageFilter.h" />
     <ClInclude Include="..\..\..\src\ImageProcessing.h" />
     <ClInclude Include="GeneratedFiles\ui_InImgItem.h" />
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
